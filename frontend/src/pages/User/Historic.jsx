@@ -1,26 +1,26 @@
-import React from 'react'
-import Aside from '../../components/Users/Aside'
-import FooterClient from '../../components/Users/FooterClient'
-import TitleFilter from '../../components/Users/TitleFilter'
-import HistoricList from '../../components/Users/HistoricList'
+import React from "react";
+import AsideClient from "../../components/Users/AsideClient";
+import TitleFilter from "../../components/Users/TitleFilter";
+import HistoricListCard from "../../components/Users/HistoricListCard";
+import Header from "../../components/Users/header";
 
 const Historic = () => {
   return (
-    <div>
-      <Aside/>
-      <div className="bg-gradient-to-br from-[#f0f4f8] to-[#dbe5ed] min-h-screen flex flex-col pt-14 px-40">
-        <main className="flex-grow">
-            <TitleFilter title={"Historics"}/>
-        <HistoricList/>
-        <HistoricList/>
-        <HistoricList/>
-        <HistoricList/>
-        </main>
-        
-      </div>
-      <FooterClient/>
+    <div className="flex h-screen bg-gradient-to-br from-[#f0f4f8] to-[#dbe5ed]">
+      <AsideClient />
+      {/* <div className="bg-gradient-to-br from-[#f0f4f8] to-[#dbe5ed] min-h-screen flex flex-col pt-14 px-40"> */}
+      {/* <main className="flex-grow"> */}
+      <main className="flex-1 p-6 overflow-y-auto">
+        <Header/>
+        <TitleFilter title={"Historics"} />
+        <HistoricListCard />
+        <HistoricListCard />
+        <HistoricListCard />
+        <HistoricListCard />
+      </main>
     </div>
-  )
-}
+    // </div>
+  );
+};
 
-export default Historic
+export default Historic;

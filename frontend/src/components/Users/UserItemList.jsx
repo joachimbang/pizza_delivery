@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-const HistoricList = () => {
+const UserItemList = () => {
   return (
-    <div className="bg-white rounded-xl p-5 mb-6  shadow-md">
+    <div className="bg-white rounded-xl p-5 mb-6 shadow-md">
       <div className="flex flex-col sm:flex-row gap-4">
         <img
           className="w-full sm:w-40 h-40 object-cover rounded-lg"
@@ -14,10 +14,15 @@ const HistoricList = () => {
             <h3 className="text-lg font-semibold text-gray-800">My Pizza</h3>
             <p className="text-sm text-gray-500">22 avril 2025</p>
           </div>
+          <div className="flex justify-end mt-4 sm:mt-0">
+            <button className="btn btn-outline text-green-600 hover:bg-green-600 hover:text-white transition-colors duration-300">
+              Add to cart
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default HistoricList;
+export default UserItemList;

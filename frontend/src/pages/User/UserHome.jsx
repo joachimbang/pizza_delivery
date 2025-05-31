@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import FooterClient from "../../components/Users/FooterClient";
-import HeaderUser from "../../components/Users/HeaderUser";
+import AsideClient from "../../components/Users/AsideClient";
+import Header from "../../components/Users/header";
 
 const PizzaCard = ({ title, date, imageUrl }) => (
   <motion.div
@@ -33,44 +33,43 @@ const UserHome = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-[#f0f4f8] to-[#dbe5ed] min-h-screen flex flex-col pt-14">
-      <HeaderUser />
-
-      <main className="flex-grow px-4 md:px-12 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="flex h-screen bg-gradient-to-br from-[#f0f4f8] to-[#dbe5ed]">
+      <AsideClient />
+      <main className="flex-1 p-6 overflow-y-auto">
+        <Header/>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-20">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-6 shadow-lg flex flex-col items-center"
+              className="bg-white rounded-2xl p-6 shadow-lg"
             >
               <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-                🍕 Pizza commandée
+                🍕 Pizza commandes
               </h2>
-              <img
-                src={pizzaImage}
-                alt="pizza"
-                className="rounded-xl w-full max-w-sm shadow-md"
-              />
-              <div className="mt-4 text-center">
-                <h3 className="text-xl font-semibold text-gray-700">
-                  Pizza Reine
-                </h3>
-                <p className="text-sm text-gray-500">
-                  Commandée le 30 mai 2025
-                </p>
-              </div>
-              <button className="mt-6 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-xl shadow">
-                Recommander 🍽️
+              <div className="space-y-4 max-h-[500px] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+              {pizzaHistory.map((item, index) => (
+                <PizzaCard
+                  key={index}
+                  title={item.title}
+                  date={item.date}
+                  imageUrl={pizzaImage}
+                />
+              ))}
+            </div>
+              <div className="flex justify-end mt-4">
+              <button className="btn btn-outline text-green-600 hover:bg-green-600 hover:text-white transition-colors duration-300">
+                See more...
               </button>
+            </div>
             </motion.div>
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1 }}
             className="bg-white rounded-2xl p-6 shadow-lg"
           >
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
@@ -203,8 +202,6 @@ const UserHome = () => {
           </div>
         </div>
       </main>
-
-      <FooterClient />
     </div>
   );
 };
