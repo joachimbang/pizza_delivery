@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 const HistoricListCard = () => {
@@ -8,7 +7,7 @@ const HistoricListCard = () => {
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 1 }}
-  ><div className="bg-white rounded-xl p-5 mb-6  shadow-md">
+  ><div className="bg-white rounded-xl p-5 mb-6  shadow-md hover:bg-slate-100 cursor-auto">
       <div className="flex flex-col sm:flex-row gap-4">
         <img
           className="w-full sm:w-40 h-40 object-cover rounded-lg"
@@ -16,7 +15,7 @@ const HistoricListCard = () => {
           alt="My Pizza"
         />
         <div className="flex flex-col justify-between flex-1">
-          <div>
+          <div >
             <h3 className="text-lg font-semibold text-gray-800">My Pizza</h3>
             <p className="text-sm text-gray-500">22 avril 2025</p>
           </div>

@@ -7,16 +7,16 @@ const PizzaCard = ({ title, date, imageUrl }) => (
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 1 }}
-    className="bg-white rounded-xl shadow-md p-4 flex items-center gap-4"
+    className="bg-white rounded-xl shadow-md p-4 flex items-center gap-4 hover:bg-slate-100 cursor-pointer"
   >
     <img
-      className="w-20 h-20 object-cover rounded-lg"
+      className="w-20 h-20 object-cover rounded-lg hover:bg-slate-100 cursor-auto"
       src={imageUrl}
       alt={title}
     />
     <div>
-      <h3 className="text-base font-semibold text-gray-800">{title}</h3>
-      <p className="text-sm text-gray-500">{date}</p>
+      <h3 className="text-base font-semibold text-gray-800 hover:bg-slate-100 cursor-auto">{title}</h3>
+      <p className="text-sm text-gray-500 hover:bg-slate-100 cursor-auto">{date}</p>
     </div>
   </motion.div>
 );

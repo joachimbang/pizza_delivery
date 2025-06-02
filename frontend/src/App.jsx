@@ -3,7 +3,8 @@ import { Routes, Route } from "react-router-dom"; // ← Corrigé ici
 import UserHome from "./pages/User/UserHome";
 import Historic from "./pages/User/Historic";
 import ClientProfile from "./pages/User/ClientProfile";
-import AdminHome from "./pages/Admin/AdminHome";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import DeliverDashboard from "./pages/Deliver/DeliverDashboard";
 import ListClient from "./pages/Admin/ListClient";
 import ListPizza from "./pages/User/ListPizza";
 
@@ -16,7 +17,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<UserHome />} />
         
-        <Route path="/admin/home" element={<AdminHome />} />
+        <Route path="/admin/home" element={<AdminDashboard />} />
+        <Route path="/deliver/dashboard" element={<DeliverDashboard />} />
         <Route path="/admin/listclient" element={<ListClient />} />
         <Route path="/client/listpizza" element={<ListPizza />} />
         <Route path="/historic" element={<Historic />} />
