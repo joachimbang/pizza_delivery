@@ -1,24 +1,33 @@
 import { motion } from "framer-motion";
 import AsideClient from "../../components/Users/AsideClient";
 import Header from "../../components/Users/header";
+import { Link } from "react-router";
 
 const PizzaCard = ({ title, date, imageUrl }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1 }}
-    className="bg-white rounded-xl shadow-md p-4 flex items-center gap-4 hover:bg-slate-100 cursor-pointer"
-  >
-    <img
-      className="w-20 h-20 object-cover rounded-lg hover:bg-slate-100 cursor-auto"
-      src={imageUrl}
-      alt={title}
-    />
-    <div>
-      <h3 className="text-base font-semibold text-gray-800 hover:bg-slate-100 cursor-auto">{title}</h3>
-      <p className="text-sm text-gray-500 hover:bg-slate-100 cursor-auto">{date}</p>
-    </div>
-  </motion.div>
+  <>
+    <Link >
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="bg-white rounded-xl shadow-md p-4 mt-5 flex items-center gap-4 hover:bg-slate-100 cursor-pointer"
+      >
+        <img
+          className="w-20 h-20 object-cover rounded-lg hover:bg-slate-100 cursor-auto"
+          src={imageUrl}
+          alt={title}
+        />
+        <div>
+          <h3 className="text-base font-semibold text-gray-800 hover:bg-slate-100 cursor-auto">
+            {title}
+          </h3>
+          <p className="text-sm text-gray-500 hover:bg-slate-100 cursor-auto">
+            {date}
+          </p>
+        </div>
+      </motion.div>
+    </Link>
+  </>
 );
 
 const UserHome = () => {
@@ -36,7 +45,7 @@ const UserHome = () => {
     <div className="flex h-screen bg-gradient-to-br from-[#f0f4f8] to-[#dbe5ed]">
       <AsideClient />
       <main className="flex-1 p-6 overflow-y-auto">
-        <Header/>
+        <Header />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-20">
           <div>
             <motion.div
@@ -49,20 +58,20 @@ const UserHome = () => {
                 🍕 Pizza commandes
               </h2>
               <div className="space-y-4 max-h-[500px] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
-              {pizzaHistory.map((item, index) => (
-                <PizzaCard
-                  key={index}
-                  title={item.title}
-                  date={item.date}
-                  imageUrl={pizzaImage}
-                />
-              ))}
-            </div>
+                {pizzaHistory.map((item, index) => (
+                  <PizzaCard
+                    key={index}
+                    title={item.title}
+                    date={item.date}
+                    imageUrl={pizzaImage}
+                  />
+                ))}
+              </div>
               <div className="flex justify-end mt-4">
-              <button className="btn btn-outline text-green-600 hover:bg-green-600 hover:text-white transition-colors duration-300">
-                See more...
-              </button>
-            </div>
+                <button className="btn btn-outline text-green-600 hover:bg-green-600 hover:text-white transition-colors duration-300">
+                  See more...
+                </button>
+              </div>
             </motion.div>
           </div>
 
@@ -91,7 +100,6 @@ const UserHome = () => {
               </button>
             </div>
           </motion.div>
-          
         </div>
 
         {/* ➤ Section Promotion corrigée */}
