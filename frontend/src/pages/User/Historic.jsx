@@ -13,6 +13,7 @@ const Historic = () => {
       <main className="flex-1 p-6 overflow-y-auto">
         <Header/>
         <TitleFilter title={"Historics"} />
+        {/* <Link></Link> */}
         <HistoricListCard />
         <HistoricListCard />
         <HistoricListCard />

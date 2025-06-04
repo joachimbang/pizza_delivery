@@ -1,4 +1,5 @@
 import React from "react";
+import { DollarSign, Users ,User2Icon} from 'lucide-react';
 
 const Statistic = () => {
   return (
@@ -6,7 +7,7 @@ const Statistic = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 mt-20 ">
         <StatCard title="📦 Prêts accordés" value="120" />
         <StatCard title="💰 Montant récupéré" value="25,000 $" />
-        <StatCard title="🧾 Prêts actifs" value="45" />
+        <StatCard title="🧾 Prêts actifs" icon={User2Icon} value="45" />
         <StatCard title="👤 Utilisateurs" value="300" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8  ">
