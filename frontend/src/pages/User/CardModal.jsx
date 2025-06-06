@@ -52,7 +52,7 @@ const CardModal = ({ isOpen, onClose }) => {
             <span>Total</span>
             <span>15€</span>
           </div>
-          <button className="btn btn-success w-full mt-4">Passer la commande</button>
+          <button className="btn btn-primary btn-block mt-4">Passer la commande</button>
         </div>
       </div>
     </div>

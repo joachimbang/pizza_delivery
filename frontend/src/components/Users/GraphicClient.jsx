@@ -1,22 +1,21 @@
-import React from 'react'
-import CommandesBarChartAdmin from './CommandeBarChart'
-import { LineChart } from 'recharts'
-import LineChartAdmin from './LineChartAdmin'
 
-const Graphic = () => {
+import LineChartClient from './LineChartClient'
+import CommandesBarChartClient from './CommandeBarsChartClient'
+
+const GraphicClient = () => {
   return (
     // {/* Graphiques */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <div className="bg-white p-4 rounded shadow ">
             <h2 className="text-lg font-semibold mb-2">
               {/* Tendance de la semaine */}
-              <CommandesBarChartAdmin/>
+              <CommandesBarChartClient/>
             </h2>
             
           </div>
           <div className="bg-white p-4 rounded shadow">
             <div className="text-lg font-semibold mb-2">
-              <LineChartAdmin/>
+              <LineChartClient/>
             </div>
             
           </div>
@@ -24,4 +23,4 @@ const Graphic = () => {
   )
 }
 
-export default Graphic
+export default GraphicClient

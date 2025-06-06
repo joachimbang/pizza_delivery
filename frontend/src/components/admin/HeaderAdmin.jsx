@@ -1,10 +1,78 @@
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import CardModal from "../../pages/User/CardModal";
 import { useState } from "react";
+import { Menu } from "lucide-react";
 
 const HeaderAdmin = () => {
   return (
-    <div className="fixed top-0 right-0 p-4 flex justify-end ml-64 w-[calc(100%-16rem)] z-50 bg-white shadow">
+    <div className="fixed top-0 right-0 p-4 flex justify-end w-full md:w-[calc(100%-16rem)] z-50 bg-white shadow">
+      <div className="drawer md:hidden">
+        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content">
+          {/* Page content here */}
+          <label htmlFor="my-drawer" className="btn  drawer-button">
+            <Menu />
+          </label>
+        </div>
+        <div className="drawer-side">
+          <label
+            htmlFor="my-drawer"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+          ></label>
+          <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+            {/* Sidebar content here */}
+            <li>
+              <NavLink
+                to="/admin/home"
+                className={({ isActive }) =>
+                  `block font-medium px-4 py-2 rounded ${
+                    isActive ? "bg-primary text-white" : "text-primary"
+                  }`
+                }
+              >
+                Dashboard
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/listcommand"
+                className={({ isActive }) =>
+                  `block font-medium px-4 py-2 rounded ${
+                    isActive ? "bg-primary text-white" : "text-primary"
+                  }`
+                }
+              >
+                Listes de commandes
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/add-user"
+                className={({ isActive }) =>
+                  `block font-medium px-4 py-2 rounded ${
+                    isActive ? "bg-primary text-white" : "text-primary"
+                  }`
+                }
+              >
+                Ajouter un utilisateur
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/ListUser"
+                className={({ isActive }) =>
+                  `block font-medium px-4 py-2 rounded ${
+                    isActive ? "bg-primary text-white" : "text-primary"
+                  }`
+                }
+              >
+                Liste des utilisateurs
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      </div>
       {/* Avatar Dropdown */}
       <div className="dropdown dropdown-end">
         <div
@@ -24,15 +92,29 @@ const HeaderAdmin = () => {
           className="menu menu-sm dropdown-content bg-white text-black rounded-box z-[1] mt-3 w-52 p-2 shadow"
         >
           <li>
-            <Link to="/profile/admin" className="justify-between">
-              Profile 
-            </Link>
+            <NavLink
+              to="/profile/admin"
+              className={({ isActive }) =>
+                `block font-medium px-4 py-2 rounded ${
+                  isActive ? "bg-primary text-white" : "text-primary"
+                }`
+              }
+            >
+              Profile
+            </NavLink>
           </li>
+
           <li>
-            <Link to="/settings">Settings</Link>
-          </li>
-          <li>
-            <Link to="/logout">Logout</Link>
+            <NavLink
+              to="/logout"
+              className={({ isActive }) =>
+                `block font-medium px-4 py-2 rounded ${
+                  isActive ? "bg-primary text-white" : "text-primary"
+                }`
+              }
+            >
+              Logut
+            </NavLink>
           </li>
         </ul>
       </div>

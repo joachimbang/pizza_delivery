@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import AsideClient from "../../components/Users/AsideClient";
 import UserItemList from "../../components/Users/UserItemList";
 import SearchFilter from "../../components/Users/SearchFilter";
-import Header from "../../components/Users/header";
+import Header from "../../components/Users/HeaderClient";
+import CardPizza from "../../components/Users/CardPizza";
 
 const ListPizza = () => {
   return (
@@ -18,10 +19,7 @@ const ListPizza = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <UserItemList />
-            <UserItemList />
-            <UserItemList />
-            <UserItemList />
+            <CardPizza/>
           </motion.div>
         </main>
       </div>

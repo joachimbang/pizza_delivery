@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 
-const HeaderDeliver = () => {
+const HeaderClient = () => {
   const [isOpen, setIsOpen] = useState(false); // ✅ État pour ouvrir/fermer le modal
 // useState
   return (
@@ -124,4 +124,4 @@ const HeaderDeliver = () => {
   );
 };
 
-export default HeaderDeliver;
+export default HeaderClient;

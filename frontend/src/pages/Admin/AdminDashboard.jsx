@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import AsideAdmin from "../../components/admin/AsideAdmin";
 import HeaderAdmin from "../../components/admin/HeaderAdmin";
 import Graphic from "../../components/admin/Graphic";
-import Statistic from "../../components/admin/Statistic";
+import Statistic from "../../components/admin/StatisticCard";
 import { motion } from "framer-motion";
-import { DollarSign, User2Icon, Users } from 'lucide-react';
+import { DollarSign, User2Icon, Users } from "lucide-react";
+import LastCommandAdmin from "../../components/admin/LastCommandAdmin";
 
 const AdminDashboard = () => {
   return (
@@ -35,41 +36,11 @@ const AdminDashboard = () => {
           animate={{ opacity: 1, y: 1 }}
           transition={{ duration: 1.5 }}
         >
-          <section className="bg-white p-4 rounded shadow mb-8">
-            <h2 className="text-lg font-semibold mb-2">
-              📌 Dernières opérations
-            </h2>
-            <ul className="space-y-2">
-              <li>✅ Prêt accordé à Jean - 2000$</li>
-              <li><Users/>Paiement de Sophie - 500$</li>
-              <li> Utilisateur "Paul" ajouté</li>
-            </ul>
-          </section>
+          <LastCommandAdmin/>
         </motion.div>
         {/* Timeline */}
 
         {/* Accès rapide */}
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 1 }}
-          transition={{ duration: 2 }}
-        >
-          <section className="bg-white p-4 rounded shadow">
-            <h2 className="text-lg font-semibold mb-4">⚡ Accès rapide</h2>
-            <div className="flex flex-wrap gap-4">
-              <Link to="/admin/add-loan" className="btn btn-primary">
-                ➕ Ajouter un prêt
-              </Link>
-              <Link to="/admin/add-user" className="btn btn-primary">
-                ➕ Ajouter un utilisateur
-              </Link>
-              <Link to="/admin/users" className="btn btn-secondary">
-                🔎 Liste des utilisateurs
-              </Link>
-            </div>
-          </section>
-        </motion.div>
       </main>
     </div>
   );

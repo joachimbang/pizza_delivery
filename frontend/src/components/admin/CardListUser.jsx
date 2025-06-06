@@ -9,6 +9,9 @@ const CardListUser = () => {
   const navigate = useNavigate();
   
 
+
+  
+
   const goToHistoricByUser = () => {
     navigate('/admin/historicbyuser');
   };
