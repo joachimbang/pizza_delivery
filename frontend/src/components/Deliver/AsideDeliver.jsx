@@ -3,21 +3,55 @@ import { Link } from "react-router";
 
 const AsideDeliver = () => {
   return (
-    <aside className=" w-64 bg-white shadow-md p-4 space-y-4">
-      <h2 className="text-2xl font-bold text-primary"><Link to={"/deliver/dashboard"}>Dashboard</Link></h2>
-      <nav className="space-y-2">
-        <Link to="/admin/home" className="block text-primary font-medium">
-          Home
-        </Link>
-        <Link to="/admin/add-loan" className="block text-primary font-medium">
-          Ajouter un prêt
-        </Link>
-        <Link to="/admin/add-user" className="block text-primary font-medium">
+    <aside className="w-64 bg-white shadow-md p-4 space-y-4 min-h-screen">
+      <h2 className="text-2xl font-bold text-primary pb-8">
+        <NavLink to="/admin/home">Logo</NavLink>
+      </h2>
+
+      <nav className="space-y-6">
+        <NavLink
+          to="/admin/home"
+          className={({ isActive }) =>
+            `block font-medium px-4 py-2 rounded ${
+              isActive ? "bg-primary text-white" : "text-primary"
+            }`
+          }
+        >
+          Dashboard
+        </NavLink>
+
+        <NavLink
+          to="/admin/add-loan"
+          className={({ isActive }) =>
+            `block font-medium px-4 py-2 rounded ${
+              isActive ? "bg-primary text-white" : "text-primary"
+            }`
+          }
+        >
+          Listes de commandes
+        </NavLink>
+
+        <NavLink
+          to="/admin/add-user"
+          className={({ isActive }) =>
+            `block font-medium px-4 py-2 rounded ${
+              isActive ? "bg-primary text-white" : "text-primary"
+            }`
+          }
+        >
           Ajouter un utilisateur
-        </Link>
-        <Link to="/admin/ListUser" className="block text-primary font-medium">
+        </NavLink>
+
+        <NavLink
+          to="/admin/ListUser"
+          className={({ isActive }) =>
+            `block font-medium px-4 py-2 rounded ${
+              isActive ? "bg-primary text-white" : "text-primary"
+            }`
+          }
+        >
           Liste des utilisateurs
-        </Link>
+        </NavLink>
       </nav>
     </aside>
   );

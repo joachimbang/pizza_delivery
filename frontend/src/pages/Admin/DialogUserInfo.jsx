@@ -4,7 +4,9 @@ import { SquarePen,Trash2 } from "lucide-react";
 const DialogUserInfo = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center px-4 sm:px-0">
+    // <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center px-4 sm:px-0">
+      <div className="fixed inset-0 bg-black bg-opacity-40 z-[9999] flex items-center justify-center px-4 sm:px-0">
+
       <div className="bg-white w-full max-w-2xl rounded-xl p-4 sm:p-6 shadow-xl relative">
         {/* Bouton Fermer */}
         <button

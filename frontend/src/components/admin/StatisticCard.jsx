@@ -19,16 +19,14 @@ const Statistic = () => {
         <Card icon={<CircleDollarSign className="text-green-600 size-8"/>} title="Revenu du jour" value="255" />
         <Card icon={<CircleDollarSign className="text-green-600 size-8"/>} title=" Revenu de la semaine" value="255" />
         
-        {/* <Card icon={<Users/>} title=" Clients" value="45" />
-        <Card icon={<Truck/>} title="👤 Livreurs" value="300" /> */}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-6 mb-8 ">
         {/* <Card icon={<Wallet/>} title="👤 Revenu du jour" value="255" /> */}
         {/* <Card icon={<CircleDollarSign className="text-green-600 size-8"/>} title=" Montant récupéré" value="25,000 $" /> */}
         <Card icon={<CircleDollarSign className="text-green-600 size-8"/>} title=" Revenu total" value="25,000 $" />
-        <Card icon={<Users/>} title=" Clients" value="45" />
-        <Card icon={<Truck/>} title="👤 Livreurs" value="300" />
+        <Card icon={<Users className="size-8"/>} title=" Clients" value="45" />
+        <Card icon={<Truck className="size-8"/>} title=" Livreurs" value="300" />
       </div>
     </>
   );

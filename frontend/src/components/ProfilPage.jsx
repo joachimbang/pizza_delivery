@@ -29,7 +29,7 @@ const ProfilPage = () => {
             {/* <div> */}
             <div className="flex-1 bg-white rounded-xl p-6">
               
-              <p className="text-sm text-gray-500 mt-4">User Information</p>
+              <p className="text-lg text font-semibold mt-4 mb-4">Edit your account</p>
               <p>Name</p>
               <label className="input input-bordered flex items-center gap-2 w-full">
                 <input type="text" className="grow" placeholder="john doe " />
