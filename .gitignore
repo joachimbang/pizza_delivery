@@ -1,1 +1,21 @@
+# Node
 node_modules/
+.env
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# System
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# DB
+*.sqlite
+*.db
+dump.sql

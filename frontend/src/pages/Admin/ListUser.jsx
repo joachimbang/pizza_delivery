@@ -183,7 +183,7 @@ const ListUser = () => {
             transition={{ duration: 1.5 }}
           >
             <div className="overflow-x-auto">
-              <table className="min-w-full table-auto">
+              <table className="min-w-full table table-zebra">
                 <thead>
                   <tr className="text-left border-b">
                     <th className="py-2 px-4"></th>

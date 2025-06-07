@@ -3,15 +3,36 @@ import cors from "cors";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/mongodb.js";
+import authRouter from "./routes/authRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 const app = express();
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
+
 connectDB();
 
+// Middleware essentiels
 app.use(express.json());
 app.use(cookieParser());
+
+// CORS – version simple pour Postman
 app.use(cors());
 
-app.get('/');
+// Si tu travailles avec un front-end :
+/*
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
+*/
 
-app.listen(port, () => console.log(`server runing on ${port}`));
+// Routes
+app.get('/', (req, res) => {
+  res.send('API is running');
+});
+
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
+
+// Démarrage du serveur
+app.listen(port, () => console.log(`server running on port ${port}`));
