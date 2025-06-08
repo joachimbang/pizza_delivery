@@ -10,7 +10,7 @@ const AsideClient = () => {
 
       <nav className="space-y-6">
         <NavLink
-          to="/"
+          to="/clientdashboard"
           className={({ isActive }) =>
             `block font-medium px-4 py-2 rounded ${
               isActive ? "bg-primary text-white" : "text-primary"
