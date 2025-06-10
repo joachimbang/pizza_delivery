@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import userModel from "../models/userModel.js";
-import transporter from "../config/nodemailer.js";
+import userModel from "../../models/userModel.js";
+import transporter from "../../config/nodemailer.js";
 
 // REGISTER
 export const register = async (req, res) => {
@@ -122,7 +122,7 @@ export const logout = async (req, res) => {
 //send otp
 export const sendVerifyOtp = async (req, res) => {
   try {
-    const user = await userModel.findById(req.userId);
+    const user = req.user;  // récupère directement depuis le middleware
 
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
@@ -157,18 +157,20 @@ export const sendVerifyOtp = async (req, res) => {
 };
 
 
+
 // verify email
 export const verifyEmail = async (req,res)=>{
-  const {userId , otp} = req.body;
+  const { otp } = req.body;
+  const userId = req.user.id;  // récupéré depuis le token
+  console.log("otp",otp)
+  console.log("user id",userId)
 
-  if (!userId || !otp) {
-    return res.status(404).json({
-      success: false,
-      message: "missing details"
-    });
+  if (!otp) {
+    return res.status(400).json({ success: false, message: "OTP is required" });
   }
   try {
     const user = await userModel.findById(userId);
+    // console.log("user:",user);
 
     if (!user) {
       return res.json({

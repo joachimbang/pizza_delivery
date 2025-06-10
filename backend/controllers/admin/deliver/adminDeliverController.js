@@ -1,7 +1,9 @@
 // controllers/deliverController.js
-import User from "../models/userModel.js";
+import userModel from "../../../models/userModel.js";
+// import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 
+/// create deliver
 export const createDeliver = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -28,24 +30,15 @@ export const createDeliver = async (req, res) => {
   }
 };
 
-// update deliver by deliver themselves
 
-export const updateDeliver = async (req, res) => {
+// Obtenir toutes les users
+export const getAllDelivers = async (req, res) => {
   try {
-    if (req.user.role !== "deliver" || req.user.id !== req.params.id) {
-      return res.status(403).json({ message: "Accès refusé" });
-    }
 
-    const updates = req.body;
-    if (updates.password) {
-      updates.password = await bcrypt.hash(updates.password, 10);
-    }
-
-    const updated = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
-    res.status(200).json({ message: "Profil mis à jour", updated });
-    console.log("Profil mis à jour", updated);
-  } catch (err) {
-    res.status(500).json({ message: "Erreur serveur", error: err.message });
-    console.log("Erreur serveur", error);
+    const delivers = await userModel.find({role:"deliver"}).sort({ createdAt: -1 });//
+    res.json(delivers);
+  } catch (error) {
+    console.error("Erreur lors de la récupération :", error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };

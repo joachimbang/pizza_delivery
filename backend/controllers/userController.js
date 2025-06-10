@@ -20,3 +20,14 @@ export const getUserData = async (req, res) => {
     return res.json({ success: false, message: error.message +" ERROR" });
   }
 };
+
+// Obtenir toutes les users
+export const getAllUsers = async (req, res) => {
+  try {
+    const user = await userModel.find().sort({ createdAt: -1 });//
+    res.json(user);
+  } catch (error) {
+    console.error("Erreur lors de la récupération :", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
