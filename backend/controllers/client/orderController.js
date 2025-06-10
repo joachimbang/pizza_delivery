@@ -1,5 +1,5 @@
-import orderModel from "../models/orderModel.js";
-import { pizzaModel } from "../models/pizzaModel.js";
+import orderModel from "../../models/orderModel.js";
+import pizzaModel from "../../models/pizzaModel.js";
 
 export const createOrder = async (req, res) => {
   try {

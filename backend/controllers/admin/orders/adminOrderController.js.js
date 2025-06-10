@@ -1,4 +1,4 @@
-import orderModel from "../models/orderModel.js";
+import orderModel from "../../../models/orderModel.js";
 
 export const getAllOrdersForAdmin = async (req, res) => {
   try {
@@ -8,11 +8,14 @@ export const getAllOrdersForAdmin = async (req, res) => {
       .sort({ createdAt: -1 });
 
     res.status(200).json(orders);
+    console.log("toutes les commandes" , orders);
   } catch (error) {
     console.error("Erreur admin get orders :", error.message);
     res.status(500).json({ message: error.message });
   }
 };
+
+//
 
 export const assignDeliverer = async (req, res) => {
   try {
@@ -21,6 +24,7 @@ export const assignDeliverer = async (req, res) => {
 
     // Vérifie que delivererId est fourni
     if (!delivererId) {
+      console.log("L'ID du livreur est requis.");
       return res.status(400).json({ message: "L'ID du livreur est requis." });
     }
 
@@ -40,6 +44,7 @@ export const assignDeliverer = async (req, res) => {
       message: "Livreur attribué avec succès.",
       order: updatedOrder
     });
+    console.log("Livreur attribué avec succès.",updatedOrder);
 
   } catch (error) {
     console.error("Erreur lors de l'attribution du livreur :", error.message);

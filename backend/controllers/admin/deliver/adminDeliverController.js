@@ -24,8 +24,8 @@ export const createDeliver = async (req, res) => {
     await deliver.save();
     res.status(201).json({ message: "deliver créé", deliver });
     console.log("livreur creer ", deliver);
-  } catch (err) {
-    res.status(500).json({ message: "Erreur serveur", error: err.message });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur serveur", error:message });
     console.log("erreur => ", error );
   }
 };
@@ -37,6 +37,7 @@ export const getAllDelivers = async (req, res) => {
 
     const delivers = await userModel.find({role:"deliver"}).sort({ createdAt: -1 });//
     res.json(delivers);
+    console.log("liste de deliver",delivers);
   } catch (error) {
     console.error("Erreur lors de la récupération :", error);
     res.status(500).json({ message: "Erreur serveur" });

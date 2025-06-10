@@ -30,7 +30,9 @@ export const updateAdmin = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const users = await userModel.find().sort({ createdAt: -1 }); //
+
     res.json(users);
+    console.log("les users:", users);
   } catch (error) {
     console.error("Erreur lors de la récupération :", error);
     res.status(500).json({ message: "Erreur serveur" });
@@ -49,11 +51,13 @@ export const getOneUser = async (req, res) => {
 
     // 3. Si aucun utilisateur n'est trouvé, renvoyer une erreur 404
     if (!oneUser) {
+      console.log("Utilisateur non trouvé");
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
 
     // 4. Si l'utilisateur est trouvé, le renvoyer en réponse
     res.status(200).json(oneUser);
+    console.log(oneUser);
   } catch (error) {
     console.error("Erreur lors de la récupération de l'utilisateur :", error);
     // Gère aussi les cas où l'ID fourni n'est pas un format valide (CastError)
