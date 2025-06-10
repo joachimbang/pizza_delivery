@@ -7,7 +7,7 @@ const orderSchema = new mongoose.Schema(
       ref: "user",
       required: true,
     },
-    livreurId: {
+    deliverId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       default: null,

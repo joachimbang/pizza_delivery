@@ -20,10 +20,10 @@ export const getAllOrdersForAdmin = async (req, res) => {
 export const assignDeliverer = async (req, res) => {
   try {
     const { orderId } = req.params;
-    const { delivererId } = req.body;
+    const { deliverId } = req.body;
 
-    // Vérifie que delivererId est fourni
-    if (!delivererId) {
+    // Vérifie que deliverId est fourni
+    if (!deliverId) {
       console.log("L'ID du livreur est requis.");
       return res.status(400).json({ message: "L'ID du livreur est requis." });
     }
@@ -31,7 +31,7 @@ export const assignDeliverer = async (req, res) => {
     // Met à jour la commande avec le livreur
     const updatedOrder = await orderModel.findByIdAndUpdate(
       orderId,
-      { livreurId: delivererId, status: "en cours" }, // Change le statut si tu veux
+      { deliverId: deliverId, status: "en cours" }, // Change le statut si tu veux
       { new: true }
     ).populate("clientId", "username email")
      .populate("livreurId", "username email");
