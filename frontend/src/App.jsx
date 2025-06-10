@@ -13,6 +13,9 @@ import AdminProfil from "./pages/Admin/AdminProfil";
 import DeliverProfil from "./pages/Deliver/DeliverProfil";
 import ListCommand from "./pages/Admin/ListCommandAdmin";
 import GetStarted from "./pages/getStarted";
+import Login from "./pages/Login";
+import SignUp from "./pages/signUp";
+import ForgetPassword from "./pages/ForgetPassowrd";
 
 const App = () => {
   return (
@@ -21,21 +24,22 @@ const App = () => {
       {/* <div class="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div> */}
       <Routes>
         <Route path="/" element={<GetStarted />} />
+        <Route path="/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/clientdashboard" element={<ClientDashboard />} />
         <Route path="/admin/historicbyuser" element={<HistoricByUser />} />
-        <Route path="/admin/home" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/listcommand" element={<ListCommand />} />
-        
+
         <Route path="/admin/edituser" element={<EditUser />} />
         <Route path="/deliver/dashboard" element={<DeliverDashboard />} />
         <Route path="/admin/listuser" element={<ListUser />} />
         <Route path="/client/listpizza" element={<ListPizza />} />
         <Route path="/historic" element={<Historic />} />
         <Route path="/profile/deliver" element={<DeliverProfil />} />
-<Route path="/profile/admin" element={<AdminProfil />} />
+        <Route path="/profile/admin" element={<AdminProfil />} />
         <Route path="/profile/client" element={<ClientProfile />} />
-        
-        
       </Routes>
     </div>
   );
