@@ -5,11 +5,17 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/mongodb.js";
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import pizzaRouter from "./routes/pizzaRoutes.js";
+import { createDefaultAdmin } from "./config/createDefaultAdmin.js";
+import deliverRouter from "./routes/deliverRouter.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
 
-connectDB();
+// Connexion à MongoDB
+connectDB().then(() => {
+  createDefaultAdmin(); // Crée admin si non existant
+});
 
 // Middleware essentiels
 app.use(express.json());
@@ -33,6 +39,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use('/api/pizza', pizzaRouter);// oky
+app.use('/api/deliver', deliverRouter);
 
 // Démarrage du serveur
 app.listen(port, () => console.log(`server running on port ${port}`));

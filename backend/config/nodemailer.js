@@ -1,12 +1,12 @@
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
 
-const transporter =  nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
-    port: 587,
-    auth:{
-        user:process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-    }
+const transporter = nodemailer.createTransport({
+  host: "smtp.sendgrid.net",
+  port: 587,
+  auth: {
+    user: "apikey", // IMPORTANT : c'est littéralement le mot "apikey"
+    pass: process.env.SENDGRID_API_KEY, // La clé API que tu as copiée
+  },
 });
 
 export default transporter;

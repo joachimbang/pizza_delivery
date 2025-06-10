@@ -1,9 +1,10 @@
 import express from "express";
-import userAuth from "../middleware/userAuth.js";
+import { isAuthenticated } from "../middleware/userAuth.js"; // corriger ici
 import { getUserData } from "../controllers/userController.js";
 
 const userRouter = express.Router();
 
-userRouter.post('/data',userAuth,getUserData);
+// Protège la route avec isAuthenticated
+userRouter.post('/data', isAuthenticated, getUserData);
 
 export default userRouter;

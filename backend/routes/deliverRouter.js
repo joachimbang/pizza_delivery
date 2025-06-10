@@ -1,6 +1,7 @@
 // routes/DeliverRoutes.js
 import express from "express";
-import { createDeliver, updateDeliver } from "../controllers/deliverController.js";
+import {updateDeliver}  from "../controllers/deliver/deliverController.js";
+import  {createDeliver} from "../controllers/admin/deliver/adminDeliverController.js";
 import { isAuthenticated, isAdmin } from "../middleware/userAuth.js";
 
 const deliverRouter = express.Router();
