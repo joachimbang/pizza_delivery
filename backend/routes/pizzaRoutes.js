@@ -13,14 +13,14 @@ import { createPizza ,updatePizza,
 const pizzaRouter = express.Router();
 
 // ✅ Routes publiques accessibles à tous
-pizzaRouter.get("/", getAllPizzas);
-pizzaRouter.get("/:id", getPizzaById);
+pizzaRouter.get("/", getAllPizzas);// oky
+pizzaRouter.get("/:id", getPizzaById);//oky
 
 // ✅ Routes protégées (admin uniquement)
-pizzaRouter.post("/create", isAuthenticated, isAdmin, createPizza);
-pizzaRouter.put("/update/:id", isAuthenticated, isAdmin, updatePizza);
-pizzaRouter.delete("/delete/:id", isAuthenticated, isAdmin, deletePizza);
-pizzaRouter.put("/:id/promote", promotePizza); // Activer promo
-pizzaRouter.put("/:id/remove-promo", removePromotion); // Désactiver promo
+pizzaRouter.post("/create", isAuthenticated, isAdmin, createPizza);//oky
+pizzaRouter.put("/update/:id", isAuthenticated, isAdmin, updatePizza);//oky
+pizzaRouter.delete("/delete/:id", isAuthenticated, isAdmin, deletePizza);//oky
+pizzaRouter.put("/:id/promote",isAuthenticated, isAdmin, promotePizza); // Activer promo //oky
+pizzaRouter.put("/:id/remove-promo",isAuthenticated, isAdmin, removePromotion); // Désactiver promo
 
 export default pizzaRouter;

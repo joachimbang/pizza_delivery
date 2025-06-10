@@ -1,5 +1,5 @@
-import orderModel from "../models/orderModel.js";
-import { pizzaModel } from "../models/pizzaModel.js";
+import orderModel from "../../models/orderModel.js";
+import pizzaModel from "../../models/pizzaModel.js";
 
 export const createOrder = async (req, res) => {
   try {
@@ -40,5 +40,27 @@ export const createOrder = async (req, res) => {
   } catch (error) {
     console.error("Erreur lors de la commande :", error.message);
     res.status(500).json({ message: error.message });
+  }
+};
+
+// get orders
+
+export const getOrdersForClient = async (req, res) => {
+  try {
+    const clientId = req.user.id;
+
+    // Chercher toutes les commandes du client
+    const orders = await orderModel
+      .find({ clientId })
+      .sort({ createdAt: -1 });
+
+    if (!orders.length) {
+      return res.status(404).json({ message: "Aucune commande trouvée pour ce client." });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des commandes du client :", error.message);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };

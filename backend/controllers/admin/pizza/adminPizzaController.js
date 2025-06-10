@@ -1,5 +1,5 @@
-
 // controllers/deliverController.js
+import pizzaModel from "../../../models/pizzaModel.js";
 import userModel from "../../../models/userModel.js";
 import bcrypt from "bcryptjs";
 // Créer une nouvelle pizza (ADMIN uniquement)
@@ -8,6 +8,8 @@ export const createPizza = async (req, res) => {
     const { name, description, price, image, category, size } = req.body;
 
     if (!name || !description || !price || !category) {
+      console.log("Champs obligatoires manquants");
+
       return res.status(400).json({ message: "Champs obligatoires manquants" });
     }
 
@@ -29,7 +31,6 @@ export const createPizza = async (req, res) => {
     image: ${image}
     category : ${category}
     size: ${size}`);
-
   } catch (error) {
     console.error("Erreur lors de la création :", error);
     res.status(500).json({ message: "Erreur serveur" });
@@ -49,27 +50,28 @@ export const updatePizza = async (req, res) => {
     );
 
     if (!updatedPizza) {
+      console.log("Pizza non trouvée");
       return res.status(404).json({ message: "Pizza non trouvée" });
     }
 
     res.json(updatedPizza);
-    console.log("pizza modifie :",updatePizza);
-    
+    console.log("pizza modifie :", updatedPizza);
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-
 // Supprimer une pizza (optionnel, ADMIN uniquement)
 export const deletePizza = async (req, res) => {
   try {
     const deletedPizza = await pizzaModel.findByIdAndDelete(req.params.id);
     if (!deletedPizza) {
+      console.log("Pizza non trouvée ");
       return res.status(404).json({ message: "Pizza non trouvée" });
     }
     res.json({ message: "Pizza supprimée avec succès" });
+    console.log("Pizza supprimée avec succès");
   } catch (error) {
     console.error("Erreur lors de la suppression :", error);
     res.status(500).json({ message: "Erreur serveur" });
@@ -83,7 +85,10 @@ export const promotePizza = async (req, res) => {
     const { promotionPrice, promotionExpires } = req.body;
 
     if (!promotionPrice || !promotionExpires) {
-      return res.status(400).json({ message: "Données de promotion manquantes" });
+      console.log("Données de promotion manquantes");
+      return res
+        .status(400)
+        .json({ message: "Données de promotion manquantes" });
     }
 
     const updatedPizza = await pizzaModel.findByIdAndUpdate(
@@ -100,7 +105,7 @@ export const promotePizza = async (req, res) => {
     if (!updatedPizza) {
       return res.status(404).json({ message: "Pizza non trouvée" });
     }
-
+    console.log("Promotion activée", updatedPizza);
     res.json({ message: "Promotion activée", pizza: updatedPizza });
   } catch (error) {
     console.error("Erreur promotion :", error);
@@ -113,7 +118,7 @@ export const removePromotion = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const updatedPizza = await Pizza.findByIdAndUpdate(
+    const updatedPizza = await pizzaModel.findByIdAndUpdate(
       id,
       {
         isOnPromotion: false,
@@ -125,10 +130,12 @@ export const removePromotion = async (req, res) => {
     );
 
     if (!updatedPizza) {
+      console.log("Pizza non trouvée");
       return res.status(404).json({ message: "Pizza non trouvée" });
     }
 
     res.json({ message: "Promotion supprimée", pizza: updatedPizza });
+    console.log("Promotion supprimée", updatedPizza);
   } catch (error) {
     console.error("Erreur suppression promo :", error);
     res.status(500).json({ message: "Erreur serveur" });

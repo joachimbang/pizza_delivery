@@ -8,6 +8,7 @@ export const getAllClients = async (req, res) => {
 
     const clients = await userModel.find({role:"client"}).sort({ createdAt: -1 });//
     res.json(clients);
+    console.log("liste clients",clients);
   } catch (error) {
     console.error("Erreur lors de la récupération :", error);
     res.status(500).json({ message: "Erreur serveur" });

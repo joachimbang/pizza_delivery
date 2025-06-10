@@ -4,6 +4,7 @@ import pizzaModel from "../models/pizzaModel.js";
 export const getAllPizzas = async (req, res) => {
   try {
     const pizzas = await pizzaModel.find().sort({ createdAt: -1 }); //
+    console.log("liste de pizza :", pizzas);
     res.json(pizzas);
   } catch (error) {
     console.error("Erreur lors de la récupération :", error);
@@ -19,6 +20,7 @@ export const getPizzaById = async (req, res) => {
       return res.status(404).json({ message: "Pizza non trouvée" });
     }
     res.json(pizza);
+    console.log("pizza trouve :", pizza);
   } catch (error) {
     console.error("Erreur lors de la récupération :", error);
     res.status(500).json({ message: "Erreur serveur" });
