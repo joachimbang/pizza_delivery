@@ -8,6 +8,7 @@ import userRouter from "./routes/userRoutes.js";
 import pizzaRouter from "./routes/pizzaRoutes.js";
 import { createDefaultAdmin } from "./config/createDefaultAdmin.js";
 import deliverRouter from "./routes/deliverRouter.js";
+import orderRouter from "./routes/orderRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -33,14 +34,15 @@ app.use(cors({
 */
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('API is running');
+app.get("/", (req, res) => {
+  res.send("API is running");
 });
 
-app.use('/api/auth', authRouter);
-app.use('/api/user', userRouter);
-app.use('/api/pizza', pizzaRouter);// oky
-app.use('/api/deliver', deliverRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
+app.use("/api/pizza", pizzaRouter); // oky
+app.use("/api/deliver", deliverRouter);
+app.use("/api/order", orderRouter);
 
 // Démarrage du serveur
 app.listen(port, () => console.log(`server running on port ${port}`));
