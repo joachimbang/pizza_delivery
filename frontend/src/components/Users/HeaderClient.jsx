@@ -4,6 +4,8 @@ import { Menu } from "lucide-react";
 
 const HeaderClient = () => {
   const [isOpen, setIsOpen] = useState(false); // ✅ État pour ouvrir/fermer le modal
+
+  
 // useState
   return (
     <div className="fixed top-0 right-0 p-4 flex justify-end w-full md:w-[calc(100%-16rem)] z-50 bg-white shadow">

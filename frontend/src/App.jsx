@@ -14,8 +14,10 @@ import DeliverProfil from "./pages/Deliver/DeliverProfil";
 import ListCommand from "./pages/Admin/ListCommandAdmin";
 import GetStarted from "./pages/getStarted";
 import Login from "./pages/Login";
+import VerifyOtp from "./pages/verifyOtp";
 import SignUp from "./pages/signUp";
 import ForgetPassword from "./pages/ForgetPassowrd";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -26,12 +28,12 @@ const App = () => {
         <Route path="/" element={<GetStarted />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/verifyotp" element={<VerifyOtp />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/clientdashboard" element={<ClientDashboard />} />
+        <Route path="/client/dashboard" element={<ClientDashboard />} />
         <Route path="/admin/historicbyuser" element={<HistoricByUser />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/listcommand" element={<ListCommand />} />
-
         <Route path="/admin/edituser" element={<EditUser />} />
         <Route path="/deliver/dashboard" element={<DeliverDashboard />} />
         <Route path="/admin/listuser" element={<ListUser />} />
@@ -41,6 +43,7 @@ const App = () => {
         <Route path="/profile/admin" element={<AdminProfil />} />
         <Route path="/profile/client" element={<ClientProfile />} />
       </Routes>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

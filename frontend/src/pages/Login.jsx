@@ -1,31 +1,27 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import pour navigation
-import api from "../lib/axios"; // Axios instance préconfigurée (baseURL...)
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; // ✅ Import du toast
+import "react-toastify/dist/ReactToastify.css";
+import api from "../lib/axios";
 
 const Login = () => {
-  const navigate = useNavigate(); // ✅ Initialise la fonction de navigation
+  const navigate = useNavigate();
 
-  // États pour stocker les valeurs des champs
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState(""); // Pour messages d’erreur ou succès
 
-  // Fonction déclenchée lors de la soumission du formulaire
   const handleLogin = async (e) => {
-    e.preventDefault(); // Empêche le rechargement de la page
+    e.preventDefault();
 
     try {
-      // Envoie les identifiants à l'API
       const res = await api.post("/auth/login", { email, password });
 
-      // Si la connexion réussit
       if (res.data.success) {
-        const user = res.data.user; // ✅ Récupère les infos utilisateur
-        const role = user.role; // ✅ Récupère le rôle
+        const user = res.data.user;
+        const role = user.role;
 
-        setMessage("Connexion réussie !");
+        toast.success("Connexion réussie ! 🎉");
 
-        // ✅ Redirige selon le rôle
         if (role === "admin") {
           navigate("/admin/dashboard");
         } else if (role === "client") {
@@ -33,12 +29,12 @@ const Login = () => {
         } else if (role === "deliver") {
           navigate("/deliver/dashboard");
         } else {
-          setMessage("Rôle utilisateur inconnu.");
+          toast.warn("Rôle utilisateur inconnu.");
         }
       }
     } catch (error) {
       console.error("Erreur de connexion :", error.response || error);
-      setMessage(
+      toast.error(
         error.response?.data?.message || "Erreur lors de la connexion."
       );
     }
@@ -51,15 +47,7 @@ const Login = () => {
           Connexion
         </h2>
 
-        {/* Affiche le message s'il existe */}
-        {message && (
-          <div className="text-center mb-4 text-sm text-red-600 font-semibold">
-            {message}
-          </div>
-        )}
-
         <form className="space-y-5" onSubmit={handleLogin}>
-          {/* Champ Email */}
           <div>
             <label className="block mb-1 text-gray-600">Email</label>
             <input
@@ -71,7 +59,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Champ Mot de passe */}
           <div>
             <label className="block mb-1 text-gray-600">Mot de passe</label>
             <input
@@ -83,7 +70,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Lien mot de passe oublié */}
           <div className="flex justify-between px-1 text-sm">
             <p className="text-gray-600">Mot de passe oublié ?</p>
             <a href="/ForgetPassword" className="text-primary hover:underline">
@@ -91,7 +77,6 @@ const Login = () => {
             </a>
           </div>
 
-          {/* Bouton submit */}
           <button
             type="submit"
             className="w-full bg-primary hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition"
@@ -100,7 +85,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Lien inscription */}
         <p className="mt-4 text-sm text-center text-gray-600">
           Vous n'avez pas de compte ?{" "}
           <a href="/signUp" className="text-primary hover:underline">

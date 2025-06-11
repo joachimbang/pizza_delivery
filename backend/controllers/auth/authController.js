@@ -63,7 +63,7 @@ export const register = async (req, res) => {
 
 // LOGIN
 export const login = async (req, res) => {
-  const {email, password} = req.body;
+  const { email, password } = req.body;
   console.log("Login body:", req.body);
 
   if (!email || !password) {
@@ -86,10 +86,12 @@ export const login = async (req, res) => {
       return res.status(401).json({ success: false, message: "Password invalid" });
     }
 
+    // ✅ Ajoute ici le rôle et les autres infos à retourner
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
+    // Envoie le token en cookie
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -97,13 +99,26 @@ export const login = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return res.status(200).json({ success: true, message: "Login successful" });
+    // ✅ Renvoie le token et les infos de l'utilisateur dans la réponse JSON
+    return res.status(200).json({
+      success: true,
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,  // 👈 Assure-toi que ce champ existe dans ton modèle
+        isAccountVerified: user.isAccountVerified,
+      },
+    });
 
   } catch (error) {
     console.error("Login Error:", error);
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
 
 // LOGOUT
 export const logout = async (req, res) => {
@@ -248,27 +263,44 @@ export const sendResetOtp = async (req,res) =>{
 }
 
 // verify otp and reset password
-export  const resetPassword = async (req,res) =>{
-  const {email,otp,newPassword} = req.body;
+export const resetPassword = async (req, res) => {
+  const { email, otp, newPassword } = req.body;
 
-  if (!email ||!otp || !newPassword) {
-    return res.json({success: false , message: "email,otp, and new password are required"})
-  }try {
-    const user = await userModel.findOne({email});
+  if (!email || !otp || !newPassword) {
+    return res.json({ success: false, message: "Email, OTP, and new password are required" });
+  }
+
+  try {
+    const user = await userModel.findOne({ email });
+
     if (!user) {
-      return res.json({success: false,message: "user not found "});
-    }
-    if (!user.resetOtp==="" || user.resetOtp !== otp) {
-      return res.json({success: false, message: "otp expired"});
+      return res.json({ success: false, message: "User not found" });
     }
 
+    // ✅ Vérifie que l'OTP est présent et correspond
+    if (!user.resetOtp || user.resetOtp !== otp) {
+      return res.json({ success: false, message: "Invalid OTP" });
+    }
+
+    // ✅ Vérifie l'expiration de l'OTP
+    if (user.resetOtpExpireAt < Date.now()) {
+      return res.json({ success: false, message: "OTP has expired" });
+    }
+
+    // 🔐 Hash du nouveau mot de passe
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
+
+    // ❌ Réinitialise l'OTP et sa date d'expiration
     user.resetOtp = "";
     user.resetOtpExpireAt = 0;
 
     await user.save();
+
+    return res.json({ success: true, message: "Password has been reset successfully" });
+
   } catch (error) {
-    return res.json({success: false, message: error.message});
+    return res.json({ success: false, message: error.message });
   }
-}
+};
+
