@@ -11,7 +11,7 @@ import deliverRouter from "./routes/deliverRouter.js";
 import orderRouter from "./routes/orderRoutes.js";
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4001;
 
 // Connexion à MongoDB
 connectDB().then(() => {
@@ -22,16 +22,14 @@ connectDB().then(() => {
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS – version simple pour Postman
-app.use(cors());
+const allowedOrigins = ['http://localhost:5173']
 
 // Si tu travailles avec un front-end :
-/*
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: allowedOrigins,
   credentials: true,
 }));
-*/
+
 
 // Routes
 app.get("/", (req, res) => {

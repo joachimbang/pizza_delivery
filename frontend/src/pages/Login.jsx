@@ -1,112 +1,166 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import pour navigation
-import api from "../lib/axios"; // Axios instance préconfigurée (baseURL...)
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AppContent } from "../context/AppContent";
+import axios from "axios";
 
 const Login = () => {
-  const navigate = useNavigate(); // ✅ Initialise la fonction de navigation
+  const navigate = useNavigate();
+  const { backendUrl, setIsLoggedin, getUserData } = useContext(AppContent);
 
-  // États pour stocker les valeurs des champs
+  const [state, setState] = useState("Sign Up");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState(""); // Pour messages d’erreur ou succès
 
-  // Fonction déclenchée lors de la soumission du formulaire
-  const handleLogin = async (e) => {
-    e.preventDefault(); // Empêche le rechargement de la page
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
 
     try {
-      // Envoie les identifiants à l'API
-      const res = await api.post("/auth/login", { email, password });
+      axios.defaults.withCredentials = true;
 
-      // Si la connexion réussit
-      if (res.data.success) {
-        const user = res.data.user; // ✅ Récupère les infos utilisateur
-        const role = user.role; // ✅ Récupère le rôle
+      if (state === "Sign Up") {
+        const { data } = await axios.post(backendUrl + "/auth/register", {
+          name,
+          email,
+          password,
+        });
 
-        setMessage("Connexion réussie !");
-
-        // ✅ Redirige selon le rôle
-        if (role === "admin") {
-          navigate("/admin/dashboard");
-        } else if (role === "client") {
-          navigate("/client/dashboard");
-        } else if (role === "deliver") {
-          navigate("/deliver/dashboard");
+        if (data.success) {
+          setIsLoggedin(true);
+          await getUserData(); // ✅ On attend le chargement des données utilisateur
+          navigate("/");
         } else {
-          setMessage("Rôle utilisateur inconnu.");
+          toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(backendUrl + "/auth/login", {
+          email,
+          password,
+        });
+
+        if (data.success) {
+          setIsLoggedin(true);
+          // await getUserData(); // ✅ Attente ici
+
+          const user = data.user;
+          const role = user.role;
+
+          toast.success("connected !");
+
+          if (role === "admin") {
+            navigate("/admin/dashboard");
+          } else if (role === "client") {
+            navigate("/client/dashboard");
+          } else if (role === "deliver") {
+            navigate("/deliver/dashboard");
+          } else {
+            toast.warn("Rôle utilisateur inconnu.");
+          }
+        } else {
+          toast.error(data.message || "Une erreur s'est produite.");
         }
       }
     } catch (error) {
-      console.error("Erreur de connexion :", error.response || error);
-      setMessage(
-        error.response?.data?.message || "Erreur lors de la connexion."
-      );
+      toast.error(error.message || "Erreur de connexion");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-      <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Connexion
-        </h2>
+    <div className="bg-gray-300 p-4 min-h-screen flex flex-col justify-center items-center">
+      <div
+        onClick={() => navigate("/")}
+        className="bg-green-600 text-white px-4 py-2 mb-4 rounded cursor-pointer underline"
+      >
+        Logo
+      </div>
 
-        {/* Affiche le message s'il existe */}
-        {message && (
-          <div className="text-center mb-4 text-sm text-red-600 font-semibold">
-            {message}
+      <h1 className="text-2xl font-bold mb-2">
+        {state === "Sign Up" ? "Create Account" : "Login"}
+      </h1>
+      <p className="mb-4 text-gray-700">
+        {state === "Sign Up" ? "Create your account" : "Login to your account"}
+      </p>
+
+      <form
+        onSubmit={onSubmitHandler}
+        className="bg-white shadow-md p-6 rounded w-full max-w-sm"
+      >
+        {state === "Sign Up" && (
+          <div className="mb-4">
+            <input
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              type="text"
+              placeholder="Full Name"
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded"
+            />
           </div>
         )}
 
-        <form className="space-y-5" onSubmit={handleLogin}>
-          {/* Champ Email */}
-          <div>
-            <label className="block mb-1 text-gray-600">Email</label>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+        <div className="mb-4">
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            type="email"
+            placeholder="Email"
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded"
+          />
+        </div>
 
-          {/* Champ Mot de passe */}
-          <div>
-            <label className="block mb-1 text-gray-600">Mot de passe</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+        <div className="mb-4">
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            type="password"
+            placeholder="Password"
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded"
+          />
+        </div>
 
-          {/* Lien mot de passe oublié */}
-          <div className="flex justify-between px-1 text-sm">
-            <p className="text-gray-600">Mot de passe oublié ?</p>
-            <a href="/ForgetPassword" className="text-primary hover:underline">
-              Récupérer
-            </a>
-          </div>
-
-          {/* Bouton submit */}
-          <button
-            type="submit"
-            className="w-full bg-primary hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition"
+        <div className="mb-4 text-right">
+          <span
+            onClick={() => navigate("/reset-password")}
+            className="text-sm text-blue-600 cursor-pointer"
           >
-            Se connecter
-          </button>
-        </form>
+            Forgot password?
+          </span>
+        </div>
 
-        {/* Lien inscription */}
-        <p className="mt-4 text-sm text-center text-gray-600">
-          Vous n'avez pas de compte ?{" "}
-          <a href="/signUp" className="text-primary hover:underline">
-            Créer un compte
-          </a>
-        </p>
+        <button
+          type="submit"
+          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+        >
+          {state}
+        </button>
+      </form>
+
+      <div className="mt-4 text-sm">
+        {state === "Sign Up" ? (
+          <p>
+            Already have an account?{" "}
+            <span
+              onClick={() => setState("Login")}
+              className="text-blue-600 cursor-pointer underline"
+            >
+              Login here
+            </span>
+          </p>
+        ) : (
+          <p>
+            Don't have an account?{" "}
+            <span
+              onClick={() => setState("Sign Up")}
+              className="text-blue-600 cursor-pointer underline"
+            >
+              Sign up
+            </span>
+          </p>
+        )}
       </div>
     </div>
   );
