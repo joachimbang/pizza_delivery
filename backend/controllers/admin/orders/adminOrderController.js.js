@@ -34,7 +34,7 @@ export const assignDeliverer = async (req, res) => {
       { deliverId: deliverId, status: "en cours" }, // Change le statut si tu veux
       { new: true }
     ).populate("clientId", "username email")
-     .populate("livreurId", "username email");
+     .populate("deliverId", "username email");
 
     if (!updatedOrder) {
       return res.status(404).json({ message: "Commande introuvable." });

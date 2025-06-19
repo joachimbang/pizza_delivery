@@ -1,127 +1,155 @@
-import { Link, NavLink } from "react-router";
-import { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router";
+import { useContext, useState } from "react";
 import { Menu } from "lucide-react";
+import { AppContent } from "../../context/AppContent";
+
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const HeaderClient = () => {
+  const navigate = useNavigate();
+  const { userData, backendUrl, setUserData, setIsLoggedin, loadingUser } =
+    useContext(AppContent);
+
+  const logout = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const { data } = await axios.post(backendUrl + "/auth/logout");
+      if (data.success) {
+        setIsLoggedin(false);
+        setUserData(false);
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   const [isOpen, setIsOpen] = useState(false); // ✅ État pour ouvrir/fermer le modal
 
-  
-// useState
+  // useState
   return (
     <div className="fixed top-0 right-0 p-4 flex justify-end w-full md:w-[calc(100%-16rem)] z-50 bg-white shadow">
-      <div className="drawer md:hidden">
-        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
-          {/* Page content here */}
-          <label htmlFor="my-drawer" className="btn  drawer-button">
-            <Menu />
-          </label>
-        </div>
-        <div className="drawer-side">
-          <label
-            htmlFor="my-drawer"
-            aria-label="close sidebar"
-            className="drawer-overlay"
-          ></label>
-          <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-            {/* Sidebar content here */}
-            <li>
-              <NavLink
-                to="/admin/home"
-                className={({ isActive }) =>
-                  `block font-medium px-4 py-2 rounded ${
-                    isActive ? "bg-primary text-white" : "text-primary"
-                  }`
-                }
-              >
-                Dashboard
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/admin/listcommand"
-                className={({ isActive }) =>
-                  `block font-medium px-4 py-2 rounded ${
-                    isActive ? "bg-primary text-white" : "text-primary"
-                  }`
-                }
-              >
-                Listes de commandes
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/admin/add-user"
-                className={({ isActive }) =>
-                  `block font-medium px-4 py-2 rounded ${
-                    isActive ? "bg-primary text-white" : "text-primary"
-                  }`
-                }
-              >
-                Ajouter un utilisateur
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/admin/ListUser"
-                className={({ isActive }) =>
-                  `block font-medium px-4 py-2 rounded ${
-                    isActive ? "bg-primary text-white" : "text-primary"
-                  }`
-                }
-              >
-                Liste des utilisateurs
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-      </div>
-      {/* Avatar Dropdown */}
-      <div className="dropdown dropdown-end">
-        <div
-          tabIndex={0}
-          role="button"
-          className="btn btn-ghost btn-circle avatar"
-        >
-          <div className="w-10 rounded-full">
-            <img
-              alt="User avatar"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            />
+      {userData ? (
+        <>
+          <div className="drawer md:hidden">
+            <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+            <div className="drawer-content">
+              {/* Page content here */}
+              <label htmlFor="my-drawer" className="btn  drawer-button">
+                <Menu />
+              </label>
+            </div>
+            <div className="drawer-side">
+              <label
+                htmlFor="my-drawer"
+                aria-label="close sidebar"
+                className="drawer-overlay"
+              ></label>
+              <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                {/* Sidebar content here */}
+                <li>
+                  <NavLink
+                    to="/admin/home"
+                    className={({ isActive }) =>
+                      `block font-medium px-4 py-2 rounded ${
+                        isActive ? "bg-primary text-white" : "text-primary"
+                      }`
+                    }
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/admin/listcommand"
+                    className={({ isActive }) =>
+                      `block font-medium px-4 py-2 rounded ${
+                        isActive ? "bg-primary text-white" : "text-primary"
+                      }`
+                    }
+                  >
+                    Listes de commandes
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/admin/add-user"
+                    className={({ isActive }) =>
+                      `block font-medium px-4 py-2 rounded ${
+                        isActive ? "bg-primary text-white" : "text-primary"
+                      }`
+                    }
+                  >
+                    Ajouter un utilisateur
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/admin/ListUser"
+                    className={({ isActive }) =>
+                      `block font-medium px-4 py-2 rounded ${
+                        isActive ? "bg-primary text-white" : "text-primary"
+                      }`
+                    }
+                  >
+                    Liste des utilisateurs
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <ul
-          tabIndex={0}
-          className="menu menu-sm dropdown-content bg-white text-black rounded-box z-[1] mt-3 w-52 p-2 shadow"
-        >
-          <li>
-            <NavLink
-              to="/profile/admin"
-              className={({ isActive }) =>
-                `block font-medium px-4 py-2 rounded ${
-                  isActive ? "bg-primary text-white" : "text-primary"
-                }`
-              }
+          <div className="dropdown dropdown-end flex items-baseline">
+            <p className="mr-2">{userData?.name ?? "Admin"}</p>
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
             >
-              
-              Profile
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/logout"
-              className={({ isActive }) =>
-                `block font-medium px-4 py-2 rounded ${
-                  isActive ? "bg-primary text-white" : "text-primary"
-                }`
-              }
+              <div className="w-10 rounded-full">
+                <img
+                  alt="User avatar"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-white text-black rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
-              Logut
-            </NavLink>
-          </li>
-        </ul>
-      </div>
+              <li>
+                <NavLink
+                  to="/profile/admin"
+                  className={({ isActive }) =>
+                    `block font-medium px-4 py-2 rounded ${
+                      isActive ? "bg-primary text-white" : "text-primary"
+                    }`
+                  }
+                >
+                  Profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/logout"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    logout();
+                  }}
+                  className={({ isActive }) =>
+                    `block font-medium px-4 py-2 rounded ${
+                      isActive ? "bg-primary text-white" : "text-primary"
+                    }`
+                  }
+                >
+                  Logout
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </>
+      ) : (
+        <div>logout</div>
+      )}
     </div>
   );
 };

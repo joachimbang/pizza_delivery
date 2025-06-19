@@ -14,3 +14,20 @@ export const getAllClients = async (req, res) => {
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
+
+//
+// Supprimer une User (optionnel, ADMIN uniquement)
+export const deleteUser = async (req, res) => {
+  try {
+    const deletedUser = await userModel.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      console.log("User non trouvée ");
+      return res.status(404).json({ message: "User non trouvée" });
+    }
+    res.json({ message: "User supprimée avec succès" });
+    console.log("User supprimée avec succès");
+  } catch (error) {
+    console.error("Erreur lors de la suppression :", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};

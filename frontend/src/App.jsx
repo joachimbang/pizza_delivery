@@ -15,7 +15,6 @@ import ListCommand from "./pages/Admin/ListCommandAdmin";
 import GetStarted from "./pages/getStarted";
 import Login from "./pages/Login";
 import VerifyOtp from "./pages/verifyOtp";
-import SignUp from "./pages/signUp";
 import ForgetPassword from "./pages/ForgetPassowrd";
 import { ToastContainer } from "react-toastify";
 
@@ -28,8 +27,8 @@ const App = () => {
         <Route path="/" element={<GetStarted />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/essaiotp" element={<EssaiOtp />} /> */}
         <Route path="/verifyotp" element={<VerifyOtp />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="/client/dashboard" element={<ClientDashboard />} />
         <Route path="/admin/historicbyuser" element={<HistoricByUser />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -42,6 +41,8 @@ const App = () => {
         <Route path="/profile/deliver" element={<DeliverProfil />} />
         <Route path="/profile/admin" element={<AdminProfil />} />
         <Route path="/profile/client" element={<ClientProfile />} />
+{/* essai...... */}
+
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />
     </div>

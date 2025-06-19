@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 
 const GetStarted = () => {
+  const navigate = useNavigate();
   return (
     <div className="relative w-full h-screen">
       {/* Background image */}
@@ -21,7 +23,7 @@ const GetStarted = () => {
           <p className="text-lg md:text-xl drop-shadow-sm">
             Commandez votre pizza préférée en quelques clics et faites-vous livrer en un temps record.
           </p>
-          <button className="mt-6 px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-black text-lg font-semibold rounded-full shadow-md transition duration-300">
+          <button onClick={()=>navigate('/login')} className="mt-6 px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-black text-lg font-semibold rounded-full shadow-md transition duration-300">
             Commencer
           </button>
         </div>

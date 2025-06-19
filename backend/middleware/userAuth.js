@@ -12,7 +12,14 @@ const ERROR_MESSAGES = {
 };
 
 export const isAuthenticated = async (req, res, next) => {
-  let token = req.cookies?.token;
+  const token = req.cookies?.token;
+
+  if (!token && req.headers.authorization?.startsWith("Bearer ")) {
+    const parts = req.headers.authorization.split(" ");
+    if (parts.length === 2) {
+      token = parts[1];
+    }
+  }
 
   if (!token && req.headers.authorization?.startsWith("Bearer ")) {
     const parts = req.headers.authorization.split(" ");
@@ -50,6 +57,7 @@ export const isAuthenticated = async (req, res, next) => {
 
 export const isAdmin = (req, res, next) => {
   if (req.user?.role !== "admin") {
+    console.error("l'utilisateur:", req.user?.role);
     return res.status(403).json({ message: ERROR_MESSAGES.ADMIN_ONLY });
   }
   next();

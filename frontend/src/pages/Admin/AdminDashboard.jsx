@@ -14,7 +14,7 @@ const AdminDashboard = () => {
       <AsideAdmin />
       {/* Main Content */}
       <main className="flex-1 p-6 overflow-y-auto">
-        <HeaderAdmin />
+        <HeaderAdmin adminName={'admin'} />
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

@@ -1,19 +1,20 @@
 // controllers/deliverController.js
-import userModel from "../../../models/userModel.js";
+// import userModel from "../../../models/userModel.js";
 // import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import userModel from "../../../models/userModel.js";
 
 /// create deliver
 export const createDeliver = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    const existing = await User.findOne({ email });
+    const existing = await userModel.findOne({ email });
     if (existing) return res.status(400).json({ message: "Email déjà utilisé" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const deliver = new User({
+    const deliver = new userModel({
       name,
       email,
       password: hashedPassword,
@@ -25,7 +26,7 @@ export const createDeliver = async (req, res) => {
     res.status(201).json({ message: "deliver créé", deliver });
     console.log("livreur creer ", deliver);
   } catch (error) {
-    res.status(500).json({ message: "Erreur serveur", error:message });
+    res.status(500).json({ message: "Erreur serveur" });
     console.log("erreur => ", error );
   }
 };

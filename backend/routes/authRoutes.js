@@ -11,7 +11,7 @@ import {
   verifyEmail,
 } from "../controllers/auth/authController.js";
 
-import { isAuthenticated as isMiddlewareAuthenticated } from "../middleware/userAuth.js";
+import {isAuthenticated as isMiddlewareAuthenticated } from "../middleware/userAuth.js";
 
 const authRouter = express.Router();
 
@@ -25,13 +25,17 @@ authRouter.post("/send-verify-otp", isMiddlewareAuthenticated, sendVerifyOtp);
 authRouter.post("/verify-account", isMiddlewareAuthenticated, verifyEmail);
 
 // Vérification de session (protégée)
-authRouter.post("/is-auth", isMiddlewareAuthenticated, (req, res) => {
-  res.status(200).json({ user: req.user, authenticated: true });
-});
+// authRouter.get("/is-auth", isMiddlewareAuthenticated, (req, res) => {
+//   res.status(200).json({ user: req.user, authenticated: true });
+// });
+
+authRouter.get("/is-auth", isMiddlewareAuthenticated,isUserAuthenticated)
+
+// isAuthenticated
 
 // Réinitialisation du mot de passe (publique)
-authRouter.post("/send-reset-otp", sendResetOtp);
-authRouter.post("/reset-password", resetPassword);
+authRouter.post("/send-reset-otp",isMiddlewareAuthenticated, sendResetOtp);
+authRouter.post("/reset-password",isMiddlewareAuthenticated, resetPassword);
 
 // Export du routeur
 export default authRouter;
