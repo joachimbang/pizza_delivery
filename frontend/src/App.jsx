@@ -17,6 +17,8 @@ import Login from "./pages/Login";
 import VerifyOtp from "./pages/verifyOtp";
 import ForgetPassword from "./pages/ForgetPassowrd";
 import { ToastContainer } from "react-toastify";
+import ReceiveOtp from "./pages/receiveOtp";
+import EmailVerify from "./pages/EmailVerify";
 
 const App = () => {
   return (
@@ -27,7 +29,7 @@ const App = () => {
         <Route path="/" element={<GetStarted />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/essaiotp" element={<EssaiOtp />} /> */}
+        <Route path="/receive-otp" element={<ReceiveOtp />} />
         <Route path="/verifyotp" element={<VerifyOtp />} />
         <Route path="/client/dashboard" element={<ClientDashboard />} />
         <Route path="/admin/historicbyuser" element={<HistoricByUser />} />
@@ -41,6 +43,7 @@ const App = () => {
         <Route path="/profile/deliver" element={<DeliverProfil />} />
         <Route path="/profile/admin" element={<AdminProfil />} />
         <Route path="/profile/client" element={<ClientProfile />} />
+        <Route path="/email-verify" element={<EmailVerify />} />
 {/* essai...... */}
 
       </Routes>

@@ -30,9 +30,9 @@ const Login = () => {
         if (data.success) {
           setIsLoggedin(true);
           await getUserData(); // ✅ On attend le chargement des données utilisateur
-          navigate("/");
+          navigate("/receive-otp");
         } else {
-          toast.error(data.message);
+          toast.error(data.message+"ici");
         }
       } else {
         const { data } = await axios.post(backendUrl + "/auth/login", {

@@ -161,6 +161,7 @@ export const sendVerifyOtp = async (req, res) => {
     console.log("sendVerifyOtp called");
 
     const { userId } = req.body;
+    console.log("user id => "+userId);
     // console.log("userId from:", userId);
 
     // ✅ Vérifie que userId est fourni
