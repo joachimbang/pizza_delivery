@@ -53,6 +53,16 @@ const AsideAdmin = () => {
         >
           Liste des utilisateurs
         </NavLink>
+        <NavLink
+                  to="/admin/listpizza"
+                  className={({ isActive }) =>
+                    `block font-medium px-4 py-2 rounded ${
+                      isActive ? "bg-primary text-white" : "text-primary"
+                    }`
+                  }
+                >
+                  Liste des Pizza
+                </NavLink>
       </nav>
 
       {/* Le dialog modal pour ajouter un utilisateur */}

@@ -9,6 +9,9 @@ const API = axios.create({
 // Fonction d'ajout d'utilisateur
 export const addUser = (data) => API.post("deliver/create", data);
 
+// add pizza
+export const addPizza = (data) => API.post("pizza/create", data);
+
 // Exemple d'appel au logout avec l'instance API
 export const logout = async () => {
   try {
@@ -19,3 +22,4 @@ export const logout = async () => {
     throw error;
   }
 };
+
