@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import OTPInput from "react-otp-input";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -64,7 +63,7 @@ const handleSubmit = async (e) => {
     if (data.success) {
       toast.success(data.message);
       getUserData();
-      navigate('/'); // Redirige vers la home après succès
+      navigate("/client/dashboard");
     } else {
       toast.error(data.message);
     }
@@ -87,7 +86,7 @@ const handleSubmit = async (e) => {
             Vérification Email
           </h1>
           <p className="text-center mb-6 text-indigo-300">
-            Entrez le code à 6 chiffres envoyé à <strong>{""}</strong>
+            Entrez le code à 6 chiffres envoyé à <strong>{userData.email}</strong>
           </p>
           <div className="flex justify-between mb-8" onPaste={handlePaste}>
             {Array(6).fill(0).map((_,index)=>(
